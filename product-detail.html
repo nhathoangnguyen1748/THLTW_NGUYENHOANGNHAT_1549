@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm | FusionTech</title>
+    <!-- Bootstrap + FontAwesome + Google Font -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f8fafc;
+        }
+        .product-image {
+            border-radius: 28px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            object-fit: cover;
+        }
+        .detail-card {
+            background: white;
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        .btn-back {
+            border-radius: 40px;
+            padding: 10px 24px;
+            background: #e9ecef;
+            color: #1e293b;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .btn-back:hover {
+            background: #dee2e6;
+            transform: translateX(-5px);
+        }
+        .btn-buy-now {
+            background: linear-gradient(135deg, #0d6efd, #0099ff);
+            border: none;
+            border-radius: 40px;
+            padding: 12px 32px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header + Navbar (tương tự trang chủ để đồng bộ) -->
+    <div class="custom-header bg-primary text-white py-3">
+        <div class="container text-center">
+            <h1 class="h3">✨ FusionTech</h1>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">FusionTech</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <a href="index.html" class="btn btn-back mb-4"><i class="fas fa-arrow-left me-2"></i>Tiếp tục mua sắm</a>
+
+        <div id="productDetailContainer" class="row g-5 align-items-start">
+            <!-- Nội dung sẽ được JS load -->
+            <div class="col-md-6 text-center">
+                <img id="detailImg" class="product-image img-fluid" src="" alt="">
+            </div>
+            <div class="col-md-6">
+                <div class="detail-card">
+                    <h2 id="detailName" class="fw-bold mb-3"></h2>
+                    <div class="badge bg-warning text-dark mb-3">🔥 Hàng chính hãng</div>
+                    <p id="detailDesc" class="lead text-muted"></p>
+                    <div class="display-6 fw-bold text-danger mb-4" id="detailPrice"></div>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-primary btn-buy-now"><i class="fas fa-shopping-cart me-2"></i>Mua ngay</button>
+                        <button class="btn btn-outline-secondary rounded-pill px-4" onclick="window.location.href='index.html'">Quay lại</button>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row small text-secondary">
+                        <div class="col-6"><i class="fas fa-truck"></i> Giao hàng miễn phí</div>
+                        <div class="col-6"><i class="fas fa-shield-alt"></i> Bảo hành 12 tháng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer giống index -->
+    <footer class="bg-dark text-white-50 pt-4 pb-3 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2025 FusionTech - Công nghệ dẫn đầu xu hướng</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dữ liệu sản phẩm mở rộng (có thể thay bằng fetch API thật)
+        const productData = {
+            1: {
+                name: "MacBook Pro M3",
+                desc: "Chip Apple M3 với 8 nhân CPU, 10 nhân GPU, RAM 16GB, SSD 512GB, màn hình Liquid Retina XDR 14.2 inch, pin 22 giờ. Cực kỳ mạnh mẽ cho công việc sáng tạo.",
+                price: "38.990.000 ₫",
+                image: "https://picsum.photos/id/1/600/500"
+            },
+            2: {
+                name: "Samsung Galaxy S24 Ultra",
+                desc: "Màn hình 6.8 inch QHD+ 120Hz, Snapdragon 8 Gen 3, camera 200MP + zoom quang 5x, S Pen tích hợp, pin 5000mAh sạc nhanh 45W.",
+                price: "29.990.000 ₫",
+                image: "https://picsum.photos/id/26/600/500"
+            },
+            3: {
+                name: "Tai nghe Sony WH-1000XM5",
+                desc: "Chống ồn chủ động tốt nhất thị trường, công nghệ Processor V1, pin 30 giờ, sạc nhanh 3 phút nghe 3 giờ, đàm thoại rõ ràng.",
+                price: "7.490.000 ₫",
+                image: "https://picsum.photos/id/20/600/500"
+            },
+            4: {
+                name: "Bàn phím Keychron K2 Pro",
+                desc: "Bàn phím cơ 75% hot-swap, hỗ trợ QMK/VIA, kết nối Bluetooth 5.1 và USB-C, đèn nền RGB, pin 4000mAh, có thể tùy chỉnh switch.",
+                price: "2.290.000 ₫",
+                image: "https://picsum.photos/id/0/600/500"
+            },
+            5: {
+                name: "Chuột Logitech MX Master 3S",
+                desc: "Cảm biến 8000 DPI, lăn MagSpeed cực nhanh, 7 nút lập trình, pin sử dụng 70 ngày, sạc USB-C, kết nối Bluetooth/Logi Bolt.",
+                price: "2.590.000 ₫",
+                image: "https://picsum.photos/id/96/600/500"
+            },
+            6: {
+                name: "iPad Pro 11\" M2",
+                desc: "Chip M2, màn hình Liquid Retina 120Hz, hỗ trợ Apple Pencil hover, camera 12MP, pin cả ngày, cổng USB-C Thunderbolt.",
+                price: "21.990.000 ₫",
+                image: "https://picsum.photos/id/42/600/500"
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        if (productId && productData[productId]) {
+            const p = productData[productId];
+            document.getElementById('detailName').innerText = p.name;
+            document.getElementById('detailDesc').innerText = p.desc;
+            document.getElementById('detailPrice').innerHTML = p.price;
+            document.getElementById('detailImg').src = p.image;
+            document.getElementById('detailImg').alt = p.name;
+        } else {
+            document.getElementById('productDetailContainer').innerHTML = `
+                <div class="alert alert-danger w-100 text-center p-5">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Không tìm thấy sản phẩm!</h3>
+                    <a href="index.html" class="btn btn-primary mt-3">Quay lại trang chủ</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
