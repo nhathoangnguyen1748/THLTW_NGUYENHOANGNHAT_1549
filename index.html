@@ -2,355 +2,363 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>FusionTech – Cửa hàng công nghệ đẳng cấp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>LUMINA | Nơi tinh hoa công nghệ gặp cảm hứng</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome 6 -->
+    <!-- Font Awesome 6 (Pro-like) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter + Space Grotesk -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
-            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         body {
-            background-color: #f8f9fa;
+            font-family: 'Inter', sans-serif;
+            background-color: #fef9f0;
+            color: #1e2a3a;
         }
-        /* Header gradient */
-        .custom-header {
-            background: linear-gradient(135deg, #0d6efd, #0099ff);
-            border-bottom: 4px solid #ffc107;
+        h1, h2, h3, h4, .logo {
+            font-family: 'Space Grotesk', monospace;
+            letter-spacing: -0.02em;
         }
-        /* Navbar custom */
-        .navbar-dark .navbar-nav .nav-link {
-            font-weight: 500;
-            transition: 0.3s;
-        }
-        .navbar-dark .navbar-nav .nav-link:hover {
-            color: #ffc107 !important;
-            transform: translateY(-2px);
-        }
-        /* Product card */
-        .product-card {
-            border: none;
-            border-radius: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            background: #fff;
+        /* Gradient Header */
+        .hero-header {
+            background: linear-gradient(105deg, #0f2b3d 0%, #1b4f6e 100%);
+            border-bottom-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            position: relative;
             overflow: hidden;
         }
+        .hero-header::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,107,107,0.15);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+        /* Navbar transparent + glass */
+        .navbar-custom {
+            background: rgba(15, 43, 61, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+        }
+        .nav-link-custom {
+            font-weight: 500;
+            color: white !important;
+            margin: 0 0.5rem;
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav-link-custom:hover {
+            color: #ffb347 !important;
+        }
+        .nav-link-custom::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #ffb347;
+            bottom: -4px;
+            left: 0;
+            transition: 0.3s;
+        }
+        .nav-link-custom:hover::after {
+            width: 100%;
+        }
+        /* Product card – elegant, soft shadow, rounded-3 */
+        .product-card {
+            background: white;
+            border-radius: 1.75rem;
+            border: none;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            overflow: hidden;
+            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.05);
+        }
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.15);
         }
-        .product-card img {
-            height: 220px;
+        .product-img {
+            height: 240px;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.6s ease;
         }
-        .product-card:hover img {
+        .product-card:hover .product-img {
             transform: scale(1.05);
         }
-        .card-body a {
-            text-decoration: none;
-            color: #212529;
-            font-weight: 600;
-        }
-        .card-body a:hover {
-            color: #0d6efd;
-        }
-        .price {
-            font-size: 1.25rem;
+        .price-tag {
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #e83e8c;
+            color: #ff6b6b;
+            letter-spacing: -0.5px;
         }
-        .btn-buy {
-            background: linear-gradient(45deg, #0d6efd, #0b5ed7);
-            border: none;
+        .btn-lumina {
+            background: #0f2b3d;
             border-radius: 40px;
-            padding: 8px 0;
+            padding: 0.5rem 1rem;
             font-weight: 500;
             transition: 0.3s;
-        }
-        .btn-buy:hover {
-            background: linear-gradient(45deg, #0b5ed7, #0a58ca);
-            transform: scale(0.98);
-            box-shadow: 0 5px 10px rgba(13,110,253,0.3);
-        }
-        /* Sidebar */
-        .sidebar-card {
-            border-radius: 20px;
+            color: white;
             border: none;
-            background: #ffffff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            width: 100%;
         }
-        .social-icon {
+        .btn-lumina:hover {
+            background: #ff6b6b;
+            transform: scale(0.97);
+            box-shadow: 0 8px 16px rgba(255,107,107,0.3);
+        }
+        /* Sidebar Glassmorphism */
+        .glass-sidebar {
+            background: rgba(255,255,245,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
+        .social-round {
             display: inline-flex;
+            width: 44px;
+            height: 44px;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 99px;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: #f1f5f9;
-            margin: 0 8px;
-            font-size: 1.5rem;
-            transition: 0.3s;
-            color: #0d6efd;
+            margin: 0 6px;
+            font-size: 1.4rem;
+            color: #0f2b3d;
+            transition: 0.25s;
         }
-        .social-icon:hover {
-            background: #0d6efd;
+        .social-round:hover {
+            background: #ff6b6b;
             color: white;
             transform: translateY(-5px);
         }
-        /* Footer */
-        .custom-footer {
-            background: #0a192f;
-            color: #ccd6f6;
-            border-top: 1px solid #233554;
+        /* Footer premium */
+        .footer-premium {
+            background: #0a1a24;
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+            color: #cddde9;
         }
-        .custom-footer a {
-            color: #8892b0;
+        .footer-premium a {
+            color: #adb7c2;
+            transition: 0.2s;
             text-decoration: none;
-            transition: 0.3s;
         }
-        .custom-footer a:hover {
-            color: #64ffda;
+        .footer-premium a:hover {
+            color: #ffb347;
             padding-left: 5px;
         }
-        .footer-heading {
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #f8f9fa;
-        }
         @media (max-width: 768px) {
-            .product-card img {
-                height: 180px;
+            .navbar-custom {
+                background: #0f2b3d;
+                backdrop-filter: none;
             }
-            .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
+            .product-img {
+                height: 200px;
+            }
+            .hero-header {
+                border-radius: 0 0 1rem 1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <div class="custom-header text-white py-4">
-        <div class="container text-center">
-            <h1 class="display-5 fw-bold">⚡ FusionTech</h1>
-            <p class="lead">Công nghệ đột phá – Giá tốt nhất</p>
+    <div class="hero-header text-white pt-4 pb-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo fs-3 fw-bold">✦ LUMINA</div>
+                <div class="d-flex gap-3">
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+            </div>
+            <div class="row align-items-center mt-4">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold">Nơi công nghệ<br>gặp cảm hứng</h1>
+                    <p class="lead mt-3">Bộ sưu tập độc quyền – thiết kế tối giản, hiệu năng vượt trội.</p>
+                    <button class="btn btn-warning rounded-pill px-4 py-2 fw-semibold mt-2">Khám phá ngay <i class="fas fa-arrow-right ms-2"></i></button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">FusionTech</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Sản phẩm</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Tìm kiếm...">
-                    <button class="btn btn-outline-light rounded-pill" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main content -->
-    <div class="container my-5">
-        <div class="row g-4">
-            <!-- Cột sản phẩm (8 col trên desktop) -->
-            <div class="col-lg-8">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="fw-semibold"><i class="fas fa-fire text-danger"></i> Sản phẩm nổi bật</h2>
-                    <a href="#" class="text-decoration-none">Xem tất cả <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="row g-4">
-                    <!-- Sản phẩm 1 -->
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card product-card h-100">
-                            <a href="product-detail.html?id=1">
-                                <img src="https://picsum.photos/id/1/400/300" class="card-img-top" alt="MacBook Pro">
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product-detail.html?id=1">MacBook Pro M3</a>
-                                </h5>
-                                <p class="card-text text-muted small">Chip M3, 16GB RAM, 512GB SSD, Retina XDR.</p>
-                                <div class="price">38.990.000 ₫</div>
-                                <button class="btn btn-buy btn-primary w-100 mt-3"><i class="fas fa-cart-plus me-2"></i>Mua ngay</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sản phẩm 2 -->
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card product-card h-100">
-                            <a href="product-detail.html?id=2">
-                                <img src="https://picsum.photos/id/26/400/300" class="card-img-top" alt="Samsung Galaxy S24">
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product-detail.html?id=2">Samsung Galaxy S24 Ultra</a>
-                                </h5>
-                                <p class="card-text text-muted small">Snapdragon 8 Gen 3, 12GB, 256GB, 200MP camera.</p>
-                                <div class="price">29.990.000 ₫</div>
-                                <button class="btn btn-buy btn-primary w-100 mt-3"><i class="fas fa-cart-plus me-2"></i>Mua ngay</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sản phẩm 3 -->
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card product-card h-100">
-                            <a href="product-detail.html?id=3">
-                                <img src="https://picsum.photos/id/20/400/300" class="card-img-top" alt="Sony WH-1000XM5">
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product-detail.html?id=3">Tai nghe Sony WH-1000XM5</a>
-                                </h5>
-                                <p class="card-text text-muted small">Chống ồn cực đỉnh, pin 30h, âm thanh Hi-Res.</p>
-                                <div class="price">7.490.000 ₫</div>
-                                <button class="btn btn-buy btn-primary w-100 mt-3"><i class="fas fa-cart-plus me-2"></i>Mua ngay</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sản phẩm 4 -->
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card product-card h-100">
-                            <a href="product-detail.html?id=4">
-                                <img src="https://picsum.photos/id/0/400/300" class="card-img-top" alt="Bàn phím cơ Keychron">
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product-detail.html?id=4">Bàn phím Keychron K2 Pro</a>
-                                </h5>
-                                <p class="card-text text-muted small">Hot-swap, RGB, kết nối 3 chế độ.</p>
-                                <div class="price">2.290.000 ₫</div>
-                                <button class="btn btn-buy btn-primary w-100 mt-3"><i class="fas fa-cart-plus me-2"></i>Mua ngay</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sản phẩm 5 -->
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card product-card h-100">
-                            <a href="product-detail.html?id=5">
-                                <img src="https://picsum.photos/id/96/400/300" class="card-img-top" alt="Logitech MX Master 3S">
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product-detail.html?id=5">Chuột Logitech MX Master 3S</a>
-                                </h5>
-                                <p class="card-text text-muted small">Cảm biến 8K DPI, lăn MagSpeed, pin 70 ngày.</p>
-                                <div class="price">2.590.000 ₫</div>
-                                <button class="btn btn-buy btn-primary w-100 mt-3"><i class="fas fa-cart-plus me-2"></i>Mua ngay</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sản phẩm 6 (thêm cho đẹp) -->
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card product-card h-100">
-                            <a href="product-detail.html?id=6">
-                                <img src="https://picsum.photos/id/42/400/300" class="card-img-top" alt="iPad Pro">
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="product-detail.html?id=6">iPad Pro 11" M2</a>
-                                </h5>
-                                <p class="card-text text-muted small">Màn hình 120Hz, chip M2, hỗ trợ Apple Pencil.</p>
-                                <div class="price">21.990.000 ₫</div>
-                                <button class="btn btn-buy btn-primary w-100 mt-3"><i class="fas fa-cart-plus me-2"></i>Mua ngay</button>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container position-relative" style="margin-top: -1.2rem;">
+        <nav class="navbar navbar-expand-lg navbar-custom px-4">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLumina">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navLumina">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link nav-link-custom active" href="index.html">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="#">Sản phẩm</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="#">Câu chuyện</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-custom" href="#">Liên hệ</a></li>
+                    </ul>
                 </div>
             </div>
-
-            <!-- Cột Sidebar (4 col) -->
-            <div class="col-lg-4">
-                <div class="sidebar-card card shadow-sm mb-4">
-                    <div class="card-header bg-white border-0 pt-3">
-                        <h5 class="mb-0"><i class="fab fa-facebook-f me-2 text-primary"></i> Kết nối với chúng tôi</h5>
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="d-flex justify-content-center">
-                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                        </div>
-                        <hr>
-                        <p class="text-muted">Nhận ưu đãi độc quyền qua email</p>
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control rounded-start-pill" placeholder="Email của bạn">
-                            <button class="btn btn-primary rounded-end-pill" type="button">Đăng ký</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Thêm banner quảng cáo nhỏ -->
-                <div class="card bg-dark text-white border-0 rounded-4 overflow-hidden">
-                    <img src="https://picsum.photos/id/22/400/200" class="card-img" alt="Banner" style="opacity: 0.7;">
-                    <div class="card-img-overlay d-flex flex-column justify-content-center">
-                        <h5 class="card-title">Flash Sale</h5>
-                        <p class="card-text">Giảm đến 50% sản phẩm chọn lọc</p>
-                        <a href="#" class="btn btn-warning btn-sm w-50">Xem ngay</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </nav>
     </div>
 
-    <!-- Footer -->
-    <footer class="custom-footer pt-5 pb-3 mt-5">
+    <main class="container my-5">
+        <div class="row g-5">
+            <!-- Product grid (col 8) -->
+            <div class="col-lg-8">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="fw-bold"><span class="border-bottom border-3 border-warning pb-1">Sản phẩm nổi bật</span></h2>
+                    <a href="#" class="text-decoration-none text-dark-emphasis small">Xem tất cả →</a>
+                </div>
+                <div class="row g-4">
+                    <!-- Product 1 -->
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card product-card h-100">
+                            <a href="product-detail.html?id=1"><img src="https://picsum.photos/id/20/400/300" class="product-img card-img-top" alt="Laptop"></a>
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold"><a href="product-detail.html?id=1" class="text-dark text-decoration-none">AERO X1 Ultra</a></h5>
+                                <p class="card-text text-secondary small">Intel Core Ultra 9, 32GB RAM, RTX 4070, 1TB SSD.</p>
+                                <div class="price-tag">44.990.000₫</div>
+                                <button class="btn btn-lumina mt-3"><i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product 2 -->
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card product-card h-100">
+                            <a href="product-detail.html?id=2"><img src="https://picsum.photos/id/26/400/300" class="product-img card-img-top" alt="Phone"></a>
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold"><a href="product-detail.html?id=2" class="text-dark text-decoration-none">ORBIT S24 Pro</a></h5>
+                                <p class="card-text text-secondary small">Snapdragon 8 Gen 3, 12GB/256GB, camera 200MP.</p>
+                                <div class="price-tag">21.990.000₫</div>
+                                <button class="btn btn-lumina mt-3"><i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product 3 -->
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card product-card h-100">
+                            <a href="product-detail.html?id=3"><img src="https://picsum.photos/id/30/400/300" class="product-img card-img-top" alt="Headphone"></a>
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold"><a href="product-detail.html?id=3" class="text-dark text-decoration-none">AUDIO HARMONY Z</a></h5>
+                                <p class="card-text text-secondary small">Chống ồn chủ động, pin 40h, âm thanh Hi-Res.</p>
+                                <div class="price-tag">6.490.000₫</div>
+                                <button class="btn btn-lumina mt-3"><i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product 4 -->
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card product-card h-100">
+                            <a href="product-detail.html?id=4"><img src="https://picsum.photos/id/96/400/300" class="product-img card-img-top" alt="Mouse"></a>
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold"><a href="product-detail.html?id=4" class="text-dark text-decoration-none">GLIDE MASTER 3</a></h5>
+                                <p class="card-text text-secondary small">Cảm biến 8K, lăn từ tính, 7 nút lập trình.</p>
+                                <div class="price-tag">2.490.000₫</div>
+                                <button class="btn btn-lumina mt-3"><i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product 5 -->
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card product-card h-100">
+                            <a href="product-detail.html?id=5"><img src="https://picsum.photos/id/42/400/300" class="product-img card-img-top" alt="Tablet"></a>
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold"><a href="product-detail.html?id=5" class="text-dark text-decoration-none">PAD STUDIO M2</a></h5>
+                                <p class="card-text text-secondary small">Màn 12.9", chip M2, Apple Pencil 2 hỗ trợ.</p>
+                                <div class="price-tag">27.490.000₫</div>
+                                <button class="btn btn-lumina mt-3"><i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product 6 -->
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card product-card h-100">
+                            <a href="product-detail.html?id=6"><img src="https://picsum.photos/id/0/400/300" class="product-img card-img-top" alt="Keyboard"></a>
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold"><a href="product-detail.html?id=6" class="text-dark text-decoration-none">MECH VIBE K2</a></h5>
+                                <p class="card-text text-secondary small">Switch đỏ, RGB, kết nối 3 chế độ, khung nhôm.</p>
+                                <div class="price-tag">3.290.000₫</div>
+                                <button class="btn btn-lumina mt-3"><i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar (col 4) – social & newsletter -->
+            <div class="col-lg-4">
+                <div class="glass-sidebar p-4 sticky-lg-top" style="top: 20px;">
+                    <h4 class="fw-bold"><i class="fas fa-hand-peace me-2" style="color:#ff6b6b;"></i> Kết nối</h4>
+                    <p class="small text-secondary">Theo dõi để nhận ưu đãi độc quyền và xu hướng mới nhất.</p>
+                    <div class="d-flex justify-content-center my-3 gap-2">
+                        <a href="#" class="social-round"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-round"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-round"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-round"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-round"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <hr class="my-3">
+                    <h5 class="fs-6 fw-semibold">📧 Đăng ký nhận bản tin</h5>
+                    <div class="input-group mt-2">
+                        <input type="email" class="form-control rounded-start-pill" placeholder="Email của bạn">
+                        <button class="btn btn-dark rounded-end-pill px-3">Gửi</button>
+                    </div>
+                    <div class="mt-4 p-3 bg-white rounded-3 shadow-sm">
+                        <i class="fas fa-gem text-warning me-2"></i> <strong>Thành viên LUMINA</strong> – Giảm 10% cho đơn đầu tiên.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer premium -->
+    <footer class="footer-premium pt-5 pb-4 mt-5">
         <div class="container">
             <div class="row gy-4">
                 <div class="col-md-4">
-                    <h5 class="footer-heading">FusionTech</h5>
-                    <p>Mang đến trải nghiệm công nghệ hiện đại, dịch vụ tận tâm và giá cả cạnh tranh.</p>
-                    <div class="mt-3">
-                        <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="me-3"><i class="fab fa-tiktok"></i></a>
-                    </div>
+                    <h3 class="fw-bold text-white">✦ LUMINA</h3>
+                    <p class="small">Định nghĩa lại trải nghiệm công nghệ – thanh lịch, bền vững và sáng tạo.</p>
                 </div>
                 <div class="col-md-2">
-                    <h5 class="footer-heading">Liên kết</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Trang chủ</a></li>
+                    <h6 class="fw-bold text-white">Khám phá</h6>
+                    <ul class="list-unstyled small">
                         <li><a href="#">Sản phẩm</a></li>
-                        <li><a href="#">Khuyến mãi</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Ưu đãi</a></li>
+                        <li><a href="#">Bài viết</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h5 class="footer-heading">Chính sách</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Bảo hành 12 tháng</a></li>
-                        <li><a href="#">Đổi trả 30 ngày</a></li>
-                        <li><a href="#">Giao hàng miễn phí</a></li>
-                        <li><a href="#">Thanh toán an toàn</a></li>
+                    <h6 class="fw-bold text-white">Hỗ trợ</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Vận chuyển</a></li>
+                        <li><a href="#">Bảo hành</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h5 class="footer-heading">Liên hệ</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường Công Nghệ, Q.7, TP.HCM</li>
-                        <li><i class="fas fa-phone-alt me-2"></i> 1900 8888</li>
-                        <li><i class="fas fa-envelope me-2"></i> cskh@fusiontech.vn</li>
+                    <h6 class="fw-bold text-white">Liên hệ</h6>
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 88 Nguyễn Du, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-headset me-2"></i> 1900 6369</li>
+                        <li><i class="fas fa-envelope me-2"></i> hello@lumina.vn</li>
                     </ul>
                 </div>
             </div>
-            <div class="text-center mt-4 pt-3 border-top border-secondary">
-                &copy; 2025 FusionTech. All rights reserved.
+            <div class="text-center mt-5 pt-3 border-top border-secondary">
+                <p class="small mb-0">&copy; 2025 LUMINA – Nơi tinh hoa hội tụ.</p>
             </div>
         </div>
     </footer>
