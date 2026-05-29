@@ -1,0 +1,61 @@
+@model Product
+@{
+    var currentUrl = Context.Request.Path + Context.Request.QueryString;
+    var imageUrl = string.IsNullOrWhiteSpace(Model.ImageUrl)
+        ? "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=900&q=80"
+        : Model.ImageUrl;
+    var hasDiscount = Model.OldPrice.HasValue && Model.OldPrice.Value > Model.Price;
+    var discount = hasDiscount
+        ? Math.Round((Model.OldPrice!.Value - Model.Price) / Model.OldPrice.Value * 100)
+        : 0;
+}
+
+<article class="product-card">
+    <a class="product-media" asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" aria-label="@Model.Name">
+        <img src="@imageUrl" alt="@Model.Name" loading="lazy" />
+        @if (hasDiscount)
+        {
+            <span class="discount-badge">-@discount%</span>
+        }
+    </a>
+    <div class="product-body">
+        <div class="product-meta">
+            <span>@Model.Category?.Name</span>
+            <span><i class="bi bi-star-fill"></i> @Model.Rating.ToString("0.0")</span>
+        </div>
+        <h3>
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId">@Model.Name</a>
+        </h3>
+        <div class="price-row">
+            <strong>@Model.Price.ToString("N0")đ</strong>
+            @if (hasDiscount)
+            {
+                <del>@Model.OldPrice!.Value.ToString("N0")đ</del>
+            }
+        </div>
+        <div class="stock-row">
+            <span>Đã bán @Model.Sold</span>
+            <span>@(Model.Stock > 0 ? $"Còn {Model.Stock}" : "Hết hàng")</span>
+        </div>
+        <form class="product-actions" asp-controller="Cart" asp-action="Add" method="post">
+            <input type="hidden" name="productId" value="@Model.ProductId" />
+            <input type="hidden" name="quantity" value="1" />
+            <input type="hidden" name="returnUrl" value="@currentUrl" />
+            <a class="icon-button ghost" asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" title="Xem chi tiết">
+                <i class="bi bi-eye"></i>
+            </a>
+            @if (Model.Stock > 0)
+            {
+                <button class="icon-button primary" type="submit" title="Thêm vào giỏ">
+                    <i class="bi bi-cart-plus"></i>
+                </button>
+            }
+            else
+            {
+                <button class="icon-button primary" type="button" title="Hết hàng" disabled>
+                    <i class="bi bi-cart-x"></i>
+                </button>
+            }
+        </form>
+    </div>
+</article>

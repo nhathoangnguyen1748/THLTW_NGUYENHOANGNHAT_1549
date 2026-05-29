@@ -1,0 +1,77 @@
+@model CheckoutViewModel
+@{
+    ViewData["Title"] = "Thanh toán";
+}
+
+<section class="section-band checkout-section">
+    <div class="container-fluid site-container">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">Thanh toán</span>
+                <h1>Thông tin giao hàng</h1>
+            </div>
+        </div>
+
+        <form asp-controller="Cart" asp-action="Checkout" method="post" class="checkout-grid">
+            <div class="form-panel">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <label>
+                    Họ tên
+                    <input asp-for="FullName" placeholder="Nguyen Van A" />
+                    <span asp-validation-for="FullName"></span>
+                </label>
+                <label>
+                    Số điện thoại
+                    <input asp-for="Phone" placeholder="090..." />
+                    <span asp-validation-for="Phone"></span>
+                </label>
+                <label>
+                    Email
+                    <input asp-for="Email" placeholder="email@example.com" />
+                    <span asp-validation-for="Email"></span>
+                </label>
+                <label>
+                    Địa chỉ nhận hàng
+                    <input asp-for="Address" placeholder="Số nhà, đường, phường/xã, quận/huyện" />
+                    <span asp-validation-for="Address"></span>
+                </label>
+                <label>
+                    Ghi chú
+                    <textarea asp-for="Note" rows="4" placeholder="Thời gian nhận hàng, yêu cầu thêm..."></textarea>
+                    <span asp-validation-for="Note"></span>
+                </label>
+            </div>
+
+            <aside class="order-summary">
+                <h2>Đơn hàng</h2>
+                @foreach (var item in Model.Cart.Items)
+                {
+                    <div>
+                        <span>@item.Name x @item.Quantity</span>
+                        <strong>@item.LineTotal.ToString("N0")đ</strong>
+                    </div>
+                }
+                <div>
+                    <span>Tạm tính</span>
+                    <strong>@Model.Cart.Subtotal.ToString("N0")đ</strong>
+                </div>
+                <div>
+                    <span>Phí vận chuyển</span>
+                    <strong>@Model.Cart.ShippingFee.ToString("N0")đ</strong>
+                </div>
+                <div class="summary-total">
+                    <span>Cần thanh toán</span>
+                    <strong>@Model.Cart.Total.ToString("N0")đ</strong>
+                </div>
+                <button class="btn-main w-100" type="submit">
+                    <i class="bi bi-check2-circle"></i>
+                    Đặt hàng
+                </button>
+            </aside>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

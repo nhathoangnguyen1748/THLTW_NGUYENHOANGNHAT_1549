@@ -1,0 +1,71 @@
+@model List<Order>
+@{
+    ViewData["Title"] = "Quản lý đơn hàng";
+    var statuses = ViewBag.Statuses as string[] ?? Array.Empty<string>();
+    var selectedStatus = ViewBag.Status as string;
+}
+
+<section class="admin-layout section-band">
+    <div class="container-fluid site-container">
+        <div class="admin-heading">
+            <div>
+                <span class="eyebrow">Quản trị</span>
+                <h1>Đơn hàng</h1>
+            </div>
+            <div class="admin-tabs">
+                <a asp-controller="Admin" asp-action="Index"><i class="bi bi-speedometer2"></i> Tổng quan</a>
+                <a asp-controller="Admin" asp-action="Products"><i class="bi bi-box-seam"></i> Sản phẩm</a>
+                <a asp-controller="Admin" asp-action="Categories"><i class="bi bi-tags"></i> Danh mục</a>
+                <a class="active" asp-controller="Admin" asp-action="Orders"><i class="bi bi-receipt"></i> Đơn hàng</a>
+            </div>
+            <form class="toolbar-form" asp-controller="Admin" asp-action="Orders" method="get">
+                <select name="status" onchange="this.form.submit()" aria-label="Lọc trạng thái">
+                    <option value="" selected="@(string.IsNullOrWhiteSpace(selectedStatus) ? "selected" : null)">Tất cả</option>
+                    @foreach (var status in statuses)
+                    {
+                        <option value="@status" selected="@(selectedStatus == status ? "selected" : null)">@status</option>
+                    }
+                </select>
+            </form>
+        </div>
+
+        <div class="table-shell">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Sản phẩm</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td><strong>@order.OrderCode</strong></td>
+                            <td>
+                                <span class="table-stack">
+                                    <strong>@order.CustomerName</strong>
+                                    <small>@order.Phone</small>
+                                </span>
+                            </td>
+                            <td>@order.OrderItems.Sum(item => item.Quantity)</td>
+                            <td>@order.Total.ToString("N0")đ</td>
+                            <td><span class="status-pill">@order.Status</span></td>
+                            <td>@order.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="table-actions">
+                                <a class="icon-button ghost" asp-controller="Admin" asp-action="OrderDetails" asp-route-id="@order.OrderId" title="Chi tiết">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

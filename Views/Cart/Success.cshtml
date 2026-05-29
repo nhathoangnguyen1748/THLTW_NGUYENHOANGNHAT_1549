@@ -1,0 +1,38 @@
+@model Order
+@{
+    ViewData["Title"] = "Đặt hàng thành công";
+}
+
+<section class="section-band success-section">
+    <div class="container-fluid site-container">
+        <div class="success-panel">
+            <div class="success-icon"><i class="bi bi-check2"></i></div>
+            <span class="eyebrow">Đơn hàng đã được ghi nhận</span>
+            <h1>@Model.OrderCode</h1>
+            <p>Cảm ơn @Model.CustomerName. Đơn hàng đang ở trạng thái <strong>@Model.Status</strong>.</p>
+            <div class="receipt-table">
+                @foreach (var item in Model.OrderItems)
+                {
+                    <div>
+                        <span>@item.ProductName x @item.Quantity</span>
+                        <strong>@item.LineTotal.ToString("N0")đ</strong>
+                    </div>
+                }
+                <div class="summary-total">
+                    <span>Tổng thanh toán</span>
+                    <strong>@Model.Total.ToString("N0")đ</strong>
+                </div>
+            </div>
+            <div class="hero-actions justify-content-center">
+                <a class="btn-main" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-bag"></i>
+                    Tiếp tục mua
+                </a>
+                <a class="btn-soft" asp-controller="Admin" asp-action="Orders">
+                    <i class="bi bi-receipt"></i>
+                    Xem trong quản trị
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

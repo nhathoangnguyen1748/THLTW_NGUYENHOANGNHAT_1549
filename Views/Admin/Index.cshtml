@@ -1,0 +1,86 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Bảng điều khiển quản trị";
+}
+
+<section class="admin-layout section-band">
+    <div class="container-fluid site-container">
+        <div class="admin-heading">
+            <div>
+                <span class="eyebrow">Quản trị</span>
+                <h1>Bảng điều khiển</h1>
+            </div>
+            <div class="admin-tabs">
+                <a class="active" asp-controller="Admin" asp-action="Index"><i class="bi bi-speedometer2"></i> Tổng quan</a>
+                <a asp-controller="Admin" asp-action="Products"><i class="bi bi-box-seam"></i> Sản phẩm</a>
+                <a asp-controller="Admin" asp-action="Categories"><i class="bi bi-tags"></i> Danh mục</a>
+                <a asp-controller="Admin" asp-action="Orders"><i class="bi bi-receipt"></i> Đơn hàng</a>
+            </div>
+        </div>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <span>Sản phẩm</span>
+                <strong>@Model.ProductCount</strong>
+            </div>
+            <div class="metric-card">
+                <span>Đơn hàng</span>
+                <strong>@Model.OrderCount</strong>
+            </div>
+            <div class="metric-card">
+                <span>Chờ xác nhận</span>
+                <strong>@Model.PendingOrderCount</strong>
+            </div>
+            <div class="metric-card">
+                <span>Doanh thu</span>
+                <strong>@Model.Revenue.ToString("N0")đ</strong>
+            </div>
+        </div>
+
+        <div class="admin-grid two-columns">
+            <section class="admin-panel">
+                <div class="panel-heading">
+                    <h2>Đơn mới</h2>
+                    <a asp-controller="Admin" asp-action="Orders">Xem tất cả</a>
+                </div>
+                <div class="admin-list">
+                    @foreach (var order in Model.RecentOrders)
+                    {
+                        <a asp-controller="Admin" asp-action="OrderDetails" asp-route-id="@order.OrderId">
+                            <span>
+                                <strong>@order.OrderCode</strong>
+                                <small>@order.CustomerName</small>
+                            </span>
+                            <span>
+                                <strong>@order.Total.ToString("N0")đ</strong>
+                                <small>@order.Status</small>
+                            </span>
+                        </a>
+                    }
+                </div>
+            </section>
+
+            <section class="admin-panel">
+                <div class="panel-heading">
+                    <h2>Bán chạy</h2>
+                    <a asp-controller="Admin" asp-action="Products">Quản lý</a>
+                </div>
+                <div class="admin-list">
+                    @foreach (var product in Model.TopProducts)
+                    {
+                        <a asp-controller="Admin" asp-action="ProductEdit" asp-route-id="@product.ProductId">
+                            <span>
+                                <strong>@product.Name</strong>
+                                <small>@product.Category.Name</small>
+                            </span>
+                            <span>
+                                <strong>@product.Sold</strong>
+                                <small>đã bán</small>
+                            </span>
+                        </a>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</section>

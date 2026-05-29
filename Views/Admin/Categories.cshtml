@@ -1,0 +1,74 @@
+@model List<Category>
+@{
+    ViewData["Title"] = "Quản lý danh mục";
+}
+
+<section class="admin-layout section-band">
+    <div class="container-fluid site-container">
+        <div class="admin-heading">
+            <div>
+                <span class="eyebrow">Quản trị</span>
+                <h1>Danh mục</h1>
+            </div>
+            <div class="admin-tabs">
+                <a asp-controller="Admin" asp-action="Index"><i class="bi bi-speedometer2"></i> Tổng quan</a>
+                <a asp-controller="Admin" asp-action="Products"><i class="bi bi-box-seam"></i> Sản phẩm</a>
+                <a class="active" asp-controller="Admin" asp-action="Categories"><i class="bi bi-tags"></i> Danh mục</a>
+                <a asp-controller="Admin" asp-action="Orders"><i class="bi bi-receipt"></i> Đơn hàng</a>
+            </div>
+            <a class="btn-main" asp-controller="Admin" asp-action="CategoryCreate">
+                <i class="bi bi-plus-lg"></i>
+                Thêm danh mục
+            </a>
+        </div>
+
+        <div class="table-shell">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Danh mục</th>
+                        <th>Slug</th>
+                        <th>Sản phẩm</th>
+                        <th>Thứ tự</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="table-product">
+                                    <img src="@category.ImageUrl" alt="@category.Name" />
+                                    <span>
+                                        <strong>@category.Name</strong>
+                                        <small>@category.Description</small>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>@category.Slug</td>
+                            <td>@category.Products.Count</td>
+                            <td>@category.DisplayOrder</td>
+                            <td>
+                                <span class="status-pill @(category.IsActive ? "success" : "muted")">
+                                    @(category.IsActive ? "Đang hiện" : "Đang ẩn")
+                                </span>
+                            </td>
+                            <td class="table-actions">
+                                <a class="icon-button ghost" asp-controller="Admin" asp-action="CategoryEdit" asp-route-id="@category.CategoryId" title="Sửa">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form asp-controller="Admin" asp-action="CategoryDelete" asp-route-id="@category.CategoryId" method="post">
+                                    <button class="icon-button ghost danger" type="submit" title="Ẩn/hiện">
+                                        <i class="bi bi-power"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

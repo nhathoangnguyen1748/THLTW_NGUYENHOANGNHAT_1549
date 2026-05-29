@@ -1,0 +1,92 @@
+@model Order
+@{
+    ViewData["Title"] = Model.OrderCode;
+    var statuses = ViewBag.Statuses as string[] ?? Array.Empty<string>();
+}
+
+<section class="admin-layout section-band">
+    <div class="container-fluid site-container">
+        <div class="admin-heading">
+            <div>
+                <span class="eyebrow">Đơn hàng</span>
+                <h1>@Model.OrderCode</h1>
+            </div>
+            <a class="btn-soft" asp-controller="Admin" asp-action="Orders">
+                <i class="bi bi-arrow-left"></i>
+                Quay lại
+            </a>
+        </div>
+
+        <div class="admin-grid two-columns">
+            <section class="admin-panel">
+                <div class="panel-heading">
+                    <h2>Thông tin khách</h2>
+                </div>
+                <div class="detail-list">
+                    <div><span>Họ tên</span><strong>@Model.CustomerName</strong></div>
+                    <div><span>Điện thoại</span><strong>@Model.Phone</strong></div>
+                    <div><span>Email</span><strong>@(Model.Email ?? "Không có")</strong></div>
+                    <div><span>Địa chỉ</span><strong>@Model.ShippingAddress</strong></div>
+                    <div><span>Ghi chú</span><strong>@(Model.Note ?? "Không có")</strong></div>
+                </div>
+                <form class="status-form" asp-controller="Admin" asp-action="UpdateOrderStatus" method="post">
+                    <input type="hidden" name="id" value="@Model.OrderId" />
+                    <select name="status" aria-label="Trạng thái đơn hàng">
+                        @foreach (var status in statuses)
+                        {
+                            <option value="@status" selected="@(Model.Status == status ? "selected" : null)">@status</option>
+                        }
+                    </select>
+                    <button class="btn-main" type="submit">
+                        <i class="bi bi-check2"></i>
+                        Cập nhật
+                    </button>
+                </form>
+            </section>
+
+            <section class="admin-panel">
+                <div class="panel-heading">
+                    <h2>Thanh toán</h2>
+                </div>
+                <div class="detail-list">
+                    <div><span>Tạm tính</span><strong>@Model.Subtotal.ToString("N0")đ</strong></div>
+                    <div><span>Phí vận chuyển</span><strong>@Model.ShippingFee.ToString("N0")đ</strong></div>
+                    <div class="summary-total"><span>Tổng cộng</span><strong>@Model.Total.ToString("N0")đ</strong></div>
+                    <div><span>Ngày tạo</span><strong>@Model.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</strong></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="table-shell mt-4">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <tr>
+                            <td>
+                                <div class="table-product">
+                                    <img src="@item.Product?.ImageUrl" alt="@item.ProductName" />
+                                    <span>
+                                        <strong>@item.ProductName</strong>
+                                        <small>@item.Product?.Brand</small>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>@item.UnitPrice.ToString("N0")đ</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.LineTotal.ToString("N0")đ</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

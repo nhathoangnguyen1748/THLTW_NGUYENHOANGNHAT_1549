@@ -1,0 +1,117 @@
+@model StorefrontViewModel
+@{
+    ViewData["Title"] = "Cửa hàng";
+    var activeCategory = Model.Categories.FirstOrDefault(category => category.CategoryId == Model.CategoryId);
+}
+
+<section class="store-hero">
+    <div class="container-fluid site-container hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow">Sàn TMĐT mini</span>
+            <h1>NH Mall</h1>
+            <p>Giao diện bán hàng có sẵn danh mục, giỏ hàng, thanh toán và khu quản trị sản phẩm, đơn hàng.</p>
+            <div class="hero-actions">
+                <a class="btn-main" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-grid-3x3-gap"></i>
+                    Tất cả sản phẩm
+                </a>
+                <a class="btn-soft" asp-controller="Cart" asp-action="Index">
+                    <i class="bi bi-cart3"></i>
+                    Xem giỏ hàng
+                </a>
+            </div>
+        </div>
+        <div class="hero-showcase">
+            @foreach (var item in Model.FeaturedProducts.Take(3))
+            {
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductId">
+                    <img src="@item.ImageUrl" alt="@item.Name" />
+                    <span>@item.Price.ToString("N0")đ</span>
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section-band">
+    <div class="container-fluid site-container">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">Danh mục</span>
+                <h2>Mua nhanh theo nhu cầu</h2>
+            </div>
+        </div>
+        <div class="category-grid">
+            <a class="category-card @(Model.CategoryId is null ? "active" : "")" asp-controller="Home" asp-action="Index">
+                <span class="category-thumb"><i class="bi bi-bag-heart"></i></span>
+                <strong>Tất cả</strong>
+                <small>@Model.Products.Count sản phẩm</small>
+            </a>
+            @foreach (var category in Model.Categories)
+            {
+                <a class="category-card @(Model.CategoryId == category.CategoryId ? "active" : "")"
+                   asp-controller="Home"
+                   asp-action="Index"
+                   asp-route-categoryId="@category.CategoryId">
+                    <span class="category-thumb">
+                        @if (!string.IsNullOrWhiteSpace(category.ImageUrl))
+                        {
+                            <img src="@category.ImageUrl" alt="@category.Name" />
+                        }
+                        else
+                        {
+                            <i class="bi bi-box-seam"></i>
+                        }
+                    </span>
+                    <strong>@category.Name</strong>
+                    <small>@category.Description</small>
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section-band products-section">
+    <div class="container-fluid site-container">
+        <div class="section-heading align-items-end">
+            <div>
+                <span class="eyebrow">Sản phẩm</span>
+                <h2>@(activeCategory?.Name ?? "Gợi ý hôm nay")</h2>
+            </div>
+            <form class="toolbar-form" asp-controller="Home" asp-action="Index" method="get">
+                @if (Model.CategoryId.HasValue)
+                {
+                    <input type="hidden" name="categoryId" value="@Model.CategoryId" />
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Search))
+                {
+                    <input type="hidden" name="search" value="@Model.Search" />
+                }
+                <select name="sort" onchange="this.form.submit()" aria-label="Sắp xếp sản phẩm">
+                    <option value="popular" selected="@(Model.Sort == "popular" ? "selected" : null)">Bán chạy</option>
+                    <option value="newest" selected="@(Model.Sort == "newest" ? "selected" : null)">Mới nhất</option>
+                    <option value="price-asc" selected="@(Model.Sort == "price-asc" ? "selected" : null)">Giá tăng dần</option>
+                    <option value="price-desc" selected="@(Model.Sort == "price-desc" ? "selected" : null)">Giá giảm dần</option>
+                </select>
+            </form>
+        </div>
+
+        @if (!Model.Products.Any())
+        {
+            <div class="empty-state">
+                <i class="bi bi-search"></i>
+                <h3>Chưa tìm thấy sản phẩm phù hợp</h3>
+                <a asp-controller="Home" asp-action="Index">Quay lại cửa hàng</a>
+            </div>
+        }
+        else
+        {
+            <div class="product-grid">
+                @foreach (var product in Model.Products)
+                {
+                    <partial name="_ProductCard" model="product" />
+                }
+            </div>
+        }
+    </div>
+</section>

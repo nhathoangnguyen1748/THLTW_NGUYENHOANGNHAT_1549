@@ -1,0 +1,93 @@
+Using launch settings from C:\Users\Admin\Desktop\LapTrinhWeb\THUCHANH\NguyenHoangNhat_Tuan3\Properties\launchSettings.json...
+Building...
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5117
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\Users\Admin\Desktop\LapTrinhWeb\THUCHANH\NguyenHoangNhat_Tuan3
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (101ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[CategoryId], [c].[Description], [c].[DisplayOrder], [c].[ImageUrl], [c].[IsActive], [c].[Name], [c].[Slug]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsActive] = CAST(1 AS bit)
+      ORDER BY [c].[DisplayOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (64ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p0].[ProductId], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt], [p0].[Description], [p0].[ImageUrl], [p0].[IsActive], [p0].[IsFeatured], [p0].[Name], [p0].[OldPrice], [p0].[Price], [p0].[Rating], [p0].[Slug], [p0].[Sold], [p0].[Stock], [c].[CategoryId], [c].[Description], [c].[DisplayOrder], [c].[ImageUrl], [c].[IsActive], [c].[Name], [c].[Slug]
+      FROM (
+          SELECT TOP(@p) [p].[ProductId], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[ImageUrl], [p].[IsActive], [p].[IsFeatured], [p].[Name], [p].[OldPrice], [p].[Price], [p].[Rating], [p].[Slug], [p].[Sold], [p].[Stock]
+          FROM [Products] AS [p]
+          WHERE [p].[IsActive] = CAST(1 AS bit) AND [p].[IsFeatured] = CAST(1 AS bit)
+          ORDER BY [p].[Sold] DESC
+      ) AS [p0]
+      INNER JOIN [Categories] AS [c] ON [p0].[CategoryId] = [c].[CategoryId]
+      ORDER BY [p0].[Sold] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (23ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[ProductId], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[ImageUrl], [p].[IsActive], [p].[IsFeatured], [p].[Name], [p].[OldPrice], [p].[Price], [p].[Rating], [p].[Slug], [p].[Sold], [p].[Stock], [c].[CategoryId], [c].[Description], [c].[DisplayOrder], [c].[ImageUrl], [c].[IsActive], [c].[Name], [c].[Slug]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+      WHERE [p].[IsActive] = CAST(1 AS bit) AND [c].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[Sold] DESC, [p].[Rating] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (102ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [c].[CategoryId], [c].[Description], [c].[DisplayOrder], [c].[ImageUrl], [c].[IsActive], [c].[Name], [c].[Slug]
+      FROM [Categories] AS [c]
+      WHERE [c].[IsActive] = CAST(1 AS bit)
+      ORDER BY [c].[DisplayOrder], [c].[Name]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (132ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p0].[ProductId], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt], [p0].[Description], [p0].[ImageUrl], [p0].[IsActive], [p0].[IsFeatured], [p0].[Name], [p0].[OldPrice], [p0].[Price], [p0].[Rating], [p0].[Slug], [p0].[Sold], [p0].[Stock], [c].[CategoryId], [c].[Description], [c].[DisplayOrder], [c].[ImageUrl], [c].[IsActive], [c].[Name], [c].[Slug]
+      FROM (
+          SELECT TOP(@p) [p].[ProductId], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[ImageUrl], [p].[IsActive], [p].[IsFeatured], [p].[Name], [p].[OldPrice], [p].[Price], [p].[Rating], [p].[Slug], [p].[Sold], [p].[Stock]
+          FROM [Products] AS [p]
+          WHERE [p].[IsActive] = CAST(1 AS bit) AND [p].[IsFeatured] = CAST(1 AS bit)
+          ORDER BY [p].[Sold] DESC
+      ) AS [p0]
+      INNER JOIN [Categories] AS [c] ON [p0].[CategoryId] = [c].[CategoryId]
+      ORDER BY [p0].[Sold] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (431ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[ProductId], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[Description], [p].[ImageUrl], [p].[IsActive], [p].[IsFeatured], [p].[Name], [p].[OldPrice], [p].[Price], [p].[Rating], [p].[Slug], [p].[Sold], [p].[Stock], [c].[CategoryId], [c].[Description], [c].[DisplayOrder], [c].[ImageUrl], [c].[IsActive], [c].[Name], [c].[Slug]
+      FROM [Products] AS [p]
+      INNER JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[CategoryId]
+      WHERE [p].[IsActive] = CAST(1 AS bit) AND [c].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[Sold] DESC, [p].[Rating] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (75ms) [Parameters=[@Trim='?' (Size = 80), @passwordHash='?' (Size = 64)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[AdminUserId], [a].[CreatedAt], [a].[FullName], [a].[IsActive], [a].[PasswordHash], [a].[Username]
+      FROM [AdminUsers] AS [a]
+      WHERE [a].[Username] = @Trim AND [a].[PasswordHash] = @passwordHash AND [a].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (165ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [o].[OrderId], [o].[CreatedAt], [o].[CustomerId], [o].[CustomerName], [o].[Email], [o].[Note], [o].[OrderCode], [o].[Phone], [o].[ShippingAddress], [o].[ShippingFee], [o].[Status], [o].[Subtotal], [o].[Total], [o0].[OrderItemId], [o0].[LineTotal], [o0].[OrderId], [o0].[ProductId], [o0].[ProductName], [o0].[Quantity], [o0].[UnitPrice]
+      FROM [Orders] AS [o]
+      LEFT JOIN [OrderItems] AS [o0] ON [o].[OrderId] = [o0].[OrderId]
+      ORDER BY [o].[CreatedAt] DESC, [o].[OrderId]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (566ms) [Parameters=[@Trim='?' (Size = 80), @passwordHash='?' (Size = 64)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[AdminUserId], [a].[CreatedAt], [a].[FullName], [a].[IsActive], [a].[PasswordHash], [a].[Username]
+      FROM [AdminUsers] AS [a]
+      WHERE [a].[Username] = @Trim AND [a].[PasswordHash] = @passwordHash AND [a].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2,136ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [o].[OrderId], [o].[CreatedAt], [o].[CustomerId], [o].[CustomerName], [o].[Email], [o].[Note], [o].[OrderCode], [o].[Phone], [o].[ShippingAddress], [o].[ShippingFee], [o].[Status], [o].[Subtotal], [o].[Total], [o0].[OrderItemId], [o0].[LineTotal], [o0].[OrderId], [o0].[ProductId], [o0].[ProductName], [o0].[Quantity], [o0].[UnitPrice]
+      FROM [Orders] AS [o]
+      LEFT JOIN [OrderItems] AS [o0] ON [o].[OrderId] = [o0].[OrderId]
+      ORDER BY [o].[CreatedAt] DESC, [o].[OrderId]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (33ms) [Parameters=[@Trim='?' (Size = 80), @passwordHash='?' (Size = 64)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[AdminUserId], [a].[CreatedAt], [a].[FullName], [a].[IsActive], [a].[PasswordHash], [a].[Username]
+      FROM [AdminUsers] AS [a]
+      WHERE [a].[Username] = @Trim AND [a].[PasswordHash] = @passwordHash AND [a].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [o].[OrderId], [o].[CreatedAt], [o].[CustomerId], [o].[CustomerName], [o].[Email], [o].[Note], [o].[OrderCode], [o].[Phone], [o].[ShippingAddress], [o].[ShippingFee], [o].[Status], [o].[Subtotal], [o].[Total], [o0].[OrderItemId], [o0].[LineTotal], [o0].[OrderId], [o0].[ProductId], [o0].[ProductName], [o0].[Quantity], [o0].[UnitPrice]
+      FROM [Orders] AS [o]
+      LEFT JOIN [OrderItems] AS [o0] ON [o].[OrderId] = [o0].[OrderId]
+      ORDER BY [o].[CreatedAt] DESC, [o].[OrderId]

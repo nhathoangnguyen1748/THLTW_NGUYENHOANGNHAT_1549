@@ -1,0 +1,70 @@
+@model CategoryFormViewModel
+@{
+    var isEdit = Model.CategoryId.HasValue;
+    var actionName = isEdit ? "CategoryEdit" : "CategoryCreate";
+    ViewData["Title"] = isEdit ? "Sửa danh mục" : "Thêm danh mục";
+}
+
+<section class="admin-layout section-band">
+    <div class="container-fluid site-container">
+        <div class="admin-heading">
+            <div>
+                <span class="eyebrow">Quản trị</span>
+                <h1>@ViewData["Title"]</h1>
+            </div>
+            <a class="btn-soft" asp-controller="Admin" asp-action="Categories">
+                <i class="bi bi-arrow-left"></i>
+                Quay lại
+            </a>
+        </div>
+
+        <form asp-controller="Admin" asp-action="@actionName" method="post" class="form-panel wide-form">
+            @if (isEdit)
+            {
+                <input type="hidden" asp-for="CategoryId" />
+            }
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-grid">
+                <label>
+                    Tên danh mục
+                    <input asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </label>
+                <label>
+                    Slug
+                    <input asp-for="Slug" />
+                    <span asp-validation-for="Slug"></span>
+                </label>
+                <label>
+                    Ảnh danh mục
+                    <input asp-for="ImageUrl" />
+                    <span asp-validation-for="ImageUrl"></span>
+                </label>
+                <label>
+                    Thứ tự hiển thị
+                    <input asp-for="DisplayOrder" type="number" min="0" />
+                    <span asp-validation-for="DisplayOrder"></span>
+                </label>
+            </div>
+            <label>
+                Mô tả
+                <textarea asp-for="Description" rows="4"></textarea>
+                <span asp-validation-for="Description"></span>
+            </label>
+            <div class="switch-row">
+                <label>
+                    <input asp-for="IsActive" />
+                    Đang hiển thị
+                </label>
+            </div>
+            <button class="btn-main" type="submit">
+                <i class="bi bi-save"></i>
+                Lưu danh mục
+            </button>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

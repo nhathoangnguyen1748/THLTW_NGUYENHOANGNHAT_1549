@@ -1,0 +1,25 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Lỗi";
+}
+
+<h1 class="text-danger">Đã xảy ra lỗi.</h1>
+<h2 class="text-danger">Ứng dụng gặp sự cố khi xử lý yêu cầu của bạn.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Mã yêu cầu:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Chế độ phát triển</h3>
+<p>
+    Khi chuyển sang môi trường <strong>Development</strong>, ứng dụng sẽ hiển thị thông tin chi tiết hơn về lỗi vừa xảy ra.
+</p>
+<p>
+    <strong>Không nên bật môi trường Development cho ứng dụng đã triển khai thật.</strong>
+    Việc này có thể làm lộ thông tin nhạy cảm từ ngoại lệ cho người dùng cuối.
+    Khi cần gỡ lỗi cục bộ, hãy đặt biến môi trường <strong>ASPNETCORE_ENVIRONMENT</strong> thành <strong>Development</strong>
+    rồi khởi động lại ứng dụng.
+</p>
