@@ -1,18 +1,21 @@
 using System.Globalization;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebBanHang.Models;
+using WebBanHang.Services;
 using WebBanHang.ViewModels;
 
 namespace WebBanHang.Controllers;
 
 public class AdminController : Controller
 {
-    private const string AdminSessionKey = "ADMIN_ID";
-
     private static readonly string[] OrderStatuses =
     {
         "Chờ xác nhận",
@@ -22,10 +25,17 @@ public class AdminController : Controller
     };
 
     private readonly WebBanHangContext _context;
+    private readonly AdminAuthorizationService _adminAuthorization;
+    private readonly IConfiguration _configuration;
 
-    public AdminController(WebBanHangContext context)
+    public AdminController(
+        WebBanHangContext context,
+        AdminAuthorizationService adminAuthorization,
+        IConfiguration configuration)
     {
         _context = context;
+        _adminAuthorization = adminAuthorization;
+        _configuration = configuration;
     }
 
     public IActionResult Login()
@@ -61,20 +71,72 @@ public class AdminController : Controller
             return View(viewModel);
         }
 
-        HttpContext.Session.SetInt32(AdminSessionKey, admin.AdminUserId);
-        HttpContext.Session.SetString("ADMIN_NAME", admin.FullName);
+        SetAdminSession(admin.AdminUserId, admin.FullName);
 
         return RedirectToAction(nameof(Index));
     }
 
+    public IActionResult GoogleLogin(string? returnUrl = null)
+    {
+        if (string.IsNullOrWhiteSpace(_configuration["Authentication:Google:ClientSecret"]))
+        {
+            TempData["AuthError"] = "Cần cấu hình Google Client Secret trước khi đăng nhập Google.";
+            return RedirectToAction(nameof(Login));
+        }
+
+        var redirectUrl = Url.Action(nameof(GoogleResponse), new
+        {
+            returnUrl = NormalizeLocalReturnUrl(returnUrl)
+        });
+
+        return Challenge(new AuthenticationProperties
+        {
+            RedirectUri = redirectUrl
+        }, GoogleDefaults.AuthenticationScheme);
+    }
+
+    public async Task<IActionResult> GoogleResponse(string? returnUrl = null)
+    {
+        var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        if (!authenticateResult.Succeeded || authenticateResult.Principal is null)
+        {
+            TempData["AuthError"] = "Không thể đăng nhập bằng Google. Vui lòng thử lại.";
+            return RedirectToAction(nameof(Login));
+        }
+
+        var email = _adminAuthorization.GetEmail(authenticateResult.Principal);
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            ClearAdminSession();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            TempData["AuthError"] = "Tài khoản Gmail này chưa có quyền quản trị.";
+            return RedirectToAction(nameof(Login));
+        }
+
+        var displayName = authenticateResult.Principal.FindFirstValue(ClaimTypes.Name)
+            ?? email
+            ?? "Google User";
+
+        if (_adminAuthorization.IsAdminEmail(email))
+        {
+            SetAdminSession(0, displayName, email);
+        }
+        else
+        {
+            ClearAdminSession();
+        }
+
+        return LocalRedirect(NormalizeLocalReturnUrl(returnUrl) ?? Url.Action("Index", "Home")!);
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
-        HttpContext.Session.Remove(AdminSessionKey);
-        HttpContext.Session.Remove("ADMIN_NAME");
+        ClearAdminSession();
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-        return RedirectToAction(nameof(Login));
+        return RedirectToAction("Index", "Home");
     }
 
     public async Task<IActionResult> Index()
@@ -494,12 +556,35 @@ public class AdminController : Controller
 
     private bool IsSignedIn()
     {
-        return HttpContext.Session.GetInt32(AdminSessionKey).HasValue;
+        return _adminAuthorization.IsAdmin(HttpContext);
     }
 
     private IActionResult? GuardAdmin()
     {
         return IsSignedIn() ? null : RedirectToAction(nameof(Login));
+    }
+
+    private void SetAdminSession(int adminId, string displayName, string? email = null)
+    {
+        HttpContext.Session.SetInt32(AdminAuthorizationService.AdminIdSessionKey, adminId);
+        HttpContext.Session.SetString(AdminAuthorizationService.AdminNameSessionKey, displayName);
+
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            HttpContext.Session.SetString(AdminAuthorizationService.AdminEmailSessionKey, email);
+        }
+    }
+
+    private void ClearAdminSession()
+    {
+        HttpContext.Session.Remove(AdminAuthorizationService.AdminIdSessionKey);
+        HttpContext.Session.Remove(AdminAuthorizationService.AdminNameSessionKey);
+        HttpContext.Session.Remove(AdminAuthorizationService.AdminEmailSessionKey);
+    }
+
+    private string? NormalizeLocalReturnUrl(string? returnUrl)
+    {
+        return Url.IsLocalUrl(returnUrl) ? returnUrl : null;
     }
 
     private async Task<List<Category>> LoadCategoriesAsync()

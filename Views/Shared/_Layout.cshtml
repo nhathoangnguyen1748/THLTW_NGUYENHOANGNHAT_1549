@@ -1,3 +1,4 @@
+@inject AdminAuthorizationService AdminAccess
 @{
     var cartCount = 0;
     var cartJson = Context.Session.GetString("SHOP_CART");
@@ -15,7 +16,8 @@
 
     var controller = Convert.ToString(ViewContext.RouteData.Values["controller"]);
     var isAdmin = string.Equals(controller, "Admin", StringComparison.OrdinalIgnoreCase);
-    var adminName = Context.Session.GetString("ADMIN_NAME");
+    var canViewAdmin = AdminAccess.IsAdmin(Context);
+    var adminName = AdminAccess.GetDisplayName(Context);
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -57,9 +59,12 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Cửa hàng</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Admin" asp-action="Index">Quản trị</a>
-                        </li>
+                        @if (canViewAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">Quản trị</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link cart-link" asp-controller="Cart" asp-action="Index" title="Giỏ hàng">
                                 <i class="bi bi-cart3"></i>
@@ -74,6 +79,15 @@
                                 <form asp-controller="Admin" asp-action="Logout" method="post">
                                     <button type="submit" title="Đăng xuất"><i class="bi bi-box-arrow-right"></i></button>
                                 </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="GoogleLogin">
+                                    <i class="bi bi-google"></i>
+                                    <span>Đăng nhập Google</span>
+                                </a>
                             </li>
                         }
                     </ul>

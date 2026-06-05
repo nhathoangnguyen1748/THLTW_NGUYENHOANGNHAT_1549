@@ -8,6 +8,18 @@
         <span class="eyebrow">Quản trị hệ thống</span>
         <h1>Đăng nhập quản trị</h1>
         <p>Tài khoản mẫu: <strong>admin</strong> / <strong>admin123</strong></p>
+        @if (TempData["AuthError"] is string authError)
+        {
+            <div class="login-alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span>@authError</span>
+            </div>
+        }
+        <a class="btn-google w-100" asp-controller="Admin" asp-action="GoogleLogin">
+            <i class="bi bi-google"></i>
+            Đăng nhập bằng Google
+        </a>
+        <div class="login-divider"><span>hoặc</span></div>
         <form asp-controller="Admin" asp-action="Login" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <label>
