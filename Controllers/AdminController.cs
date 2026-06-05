@@ -4,10 +4,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NguyenHoangNhat_Tuan3.Models;
-using NguyenHoangNhat_Tuan3.ViewModels;
+using WebBanHang.Models;
+using WebBanHang.ViewModels;
 
-namespace NguyenHoangNhat_Tuan3.Controllers;
+namespace WebBanHang.Controllers;
 
 public class AdminController : Controller
 {

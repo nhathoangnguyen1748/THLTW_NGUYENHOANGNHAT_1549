@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace NguyenHoangNhat_Tuan3.Models;
+namespace WebBanHang.Models;
 
 public partial class WebBanHangContext : DbContext
 {

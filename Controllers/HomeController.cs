@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using NguyenHoangNhat_Tuan3.Models;
-using NguyenHoangNhat_Tuan3.ViewModels;
+using WebBanHang.Models;
+using WebBanHang.ViewModels;
 
-namespace NguyenHoangNhat_Tuan3.Controllers
+namespace WebBanHang.Controllers
 {
     public class HomeController : Controller
     {

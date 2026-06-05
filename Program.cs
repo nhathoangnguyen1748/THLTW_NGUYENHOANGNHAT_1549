@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using NguyenHoangNhat_Tuan3.Models;
+using WebBanHang.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

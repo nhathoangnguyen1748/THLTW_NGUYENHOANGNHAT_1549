@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace NguyenHoangNhat_Tuan3.Models;
+namespace WebBanHang.Models;
 
 public partial class Category
 {

@@ -1,4 +1,4 @@
-namespace NguyenHoangNhat_Tuan3.Models
+namespace WebBanHang.Models
 {
     public class ErrorViewModel
     {

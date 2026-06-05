@@ -1,4 +1,4 @@
-Using launch settings from C:\Users\Admin\Desktop\LapTrinhWeb\THUCHANH\NguyenHoangNhat_Tuan3\Properties\launchSettings.json...
+Using launch settings from C:\Users\Admin\Desktop\LapTrinhWeb\THUCHANH\WebBanHang\Properties\launchSettings.json...
 Building...
 info: Microsoft.Hosting.Lifetime[14]
       Now listening on: http://localhost:5117
@@ -7,7 +7,7 @@ info: Microsoft.Hosting.Lifetime[0]
 info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 info: Microsoft.Hosting.Lifetime[0]
-      Content root path: C:\Users\Admin\Desktop\LapTrinhWeb\THUCHANH\NguyenHoangNhat_Tuan3
+      Content root path: C:\Users\Admin\Desktop\LapTrinhWeb\THUCHANH\WebBanHang
 warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
       Failed to determine the https port for redirect.
 info: Microsoft.EntityFrameworkCore.Database.Command[20101]

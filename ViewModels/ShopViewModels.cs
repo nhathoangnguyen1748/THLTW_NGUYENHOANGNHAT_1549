@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using NguyenHoangNhat_Tuan3.Models;
+using WebBanHang.Models;
 
-namespace NguyenHoangNhat_Tuan3.ViewModels;
+namespace WebBanHang.ViewModels;
 
 public class StorefrontViewModel
 {
